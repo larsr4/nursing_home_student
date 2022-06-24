@@ -5,10 +5,12 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -17,9 +19,9 @@ public class Main extends Application {
     private Stage primaryStage;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        mainWindow();// 
+        mainWindow();//
     }
 
     public void mainWindow() {
@@ -45,6 +47,13 @@ public class Main extends Application {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void mainPage(Stage primaryStage) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
+        primaryStage.setTitle("User Login NHPlus");
+        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

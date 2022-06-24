@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<BorderPane fx:id="LoginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+    <top>
+        <VBox id="vBox" alignment="CENTER" spacing="50" styleClass="vBox" BorderPane.alignment="CENTER">
+            <children>
+                <!-- Add Header Label -->
+                <Label text="Login NHPlus" BorderPane.alignment="BASELINE_CENTER" >
+                    <font>
+                        <Font name="ARIAL" size="22.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <VBox id="vBox" alignment="CENTER" spacing="50" styleClass="vBox" BorderPane.alignment="CENTER">
+            <children>
+                <!-- Add Email Label -->
+                <Label text="Username : " BorderPane.alignment="TOP_CENTER"  >
+                    <font>
+                        <Font name="ARIAL" size="18.0" />
+                    </font>
+                </Label>
+                <!-- Add Email Text Field -->
+                <TextField fx:id="username" BorderPane.alignment="TOP_CENTER"/>
+                <!-- Add Password Label -->
+                <Label text="Password : " BorderPane.alignment="BOTTOM_CENTER" >
+                    <font>
+                        <Font name="ARIAL" size="18.0" />
+                    </font>
+                </Label>
+                <!-- Add Password Field -->
+                <PasswordField fx:id="passwordField" BorderPane.alignment="BOTTOM_CENTER"/>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <VBox id="vBox" alignment="CENTER" spacing="50" styleClass="vBox" BorderPane.alignment="CENTER">
+            <children>
+                <!-- Add Submit Button -->
+                <Button fx:id="submitButton" alignment="CENTER" defaultButton="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" prefWidth="205.0" prefHeight="55" text="Login" >
+                    <font>
+                        <Font name="ARIAL" size="15.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>

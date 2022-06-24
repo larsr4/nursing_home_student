@@ -53,7 +53,7 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
     protected Caregiver getInstanceFromResultSet(ResultSet result) throws SQLException {
         Caregiver p = null;
         p = new Caregiver(result.getInt(1), result.getString(2),
-                result.getString(3),result.getDate(4),result.getInt(5));
+                result.getString(3), result.getString(4),result.getString(5));
         return p;
     }
 
