@@ -18,12 +18,16 @@ public class Main extends Application {
 
     private Stage primaryStage;
 
-
+    /**
+     * Main auslagern & nur Main anlaufen lassen und den Inhalt von Main in neue Klasse, welche mit Loginkotroller verbunden ist.
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException{
         this.primaryStage = primaryStage;
-        mainWindow();//
-        //loginPage(primaryStage);
+        loginPage();
+        mainWindow();
     }
 
     public void mainWindow() {
@@ -51,7 +55,7 @@ public class Main extends Application {
         }
     }
 
-    public void loginPage(Stage primaryStage) throws IOException{
+    public void loginPage() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
         primaryStage.setTitle("User Login NHPlus");
         primaryStage.setScene(new Scene(root, 800, 500));

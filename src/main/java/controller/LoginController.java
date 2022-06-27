@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.tools.javac.Main;
 import datastorage.ConnectionBuilder;
 import datastorage.JdbcDAO;
 import javafx.event.ActionEvent;
@@ -14,7 +13,9 @@ import javafx.stage.Window;
 
 import java.sql.SQLException;
 
+
 public class LoginController {
+    Main main;
 
     @FXML
     private TextField username;
@@ -26,7 +27,7 @@ public class LoginController {
     private Button submitButton;
 
     @FXML
-    public void login(ActionEvent event) throws SQLException {
+    public void login(ActionEvent event ) throws SQLException {
 
         Window owner = submitButton.getScene().getWindow();
 
@@ -51,7 +52,6 @@ public class LoginController {
             infoBox("Please enter correct Username and Password", null, "Failed");
         } else {
             infoBox("Correct Username and Password", null, "Success");
-
         }
     }
 
