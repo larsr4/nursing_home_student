@@ -1,5 +1,6 @@
 package controller;
 
+import datastorage.CaregiverDAO;
 import datastorage.PatientDAO;
 import datastorage.TreatmentDAO;
 import javafx.collections.FXCollections;
@@ -40,6 +41,8 @@ public class AllTreatmentController {
     private Button btnNewTreatment;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnBlock;
 
     private ObservableList<Treatment> tableviewContent =
             FXCollections.observableArrayList();
@@ -65,6 +68,9 @@ public class AllTreatmentController {
         createComboBoxData();
     }
 
+    /**
+     * calls readAll in {@link TreatmentDAO} and shows treatment in the table
+     */
     public void readAllAndShowInTableView() {
         this.tableviewContent.clear();
         comboBox.getSelectionModel().select(0);
@@ -80,6 +86,9 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Erstellt die Comboboxdaten
+     */
     private void createComboBoxData(){
         PatientDAO dao = DAOFactory.getDAOFactory().createPatientDAO();
         try {
@@ -93,7 +102,9 @@ public class AllTreatmentController {
         }
     }
 
-
+    /**
+     * handhabt die Comboboxdaten
+     */
     @FXML
     public void handleComboBox(){
         String p = this.comboBox.getSelectionModel().getSelectedItem();
@@ -123,6 +134,11 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * gibt einen bestimmten patient zurück anhand des nachnames
+     * @param surname
+     * @return A Patient
+     */
     private Patient searchInList(String surname){
         for (int i =0; i<this.patientList.size();i++){
             if(this.patientList.get(i).getSurname().equals(surname)){
@@ -131,7 +147,9 @@ public class AllTreatmentController {
         }
         return null;
     }
-
+    /**
+     * handles a delete-click-event. Calls the delete methods in the {@link TreatmentDAO}
+     */
     @FXML
     public void handleDelete(){
         int index = this.tableView.getSelectionModel().getSelectedIndex();
@@ -143,7 +161,23 @@ public class AllTreatmentController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * handles a block-click-event. Calls the block methods in the {@link TreatmentDAO}
+     */
+    @FXML
+    public void handleBlock(){
+        int index = this.tableView.getSelectionModel().getSelectedIndex();
+        Treatment t = this.tableviewContent.remove(index);
+        TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
+        try {
+            dao.blockById(t.getTid());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * handles a NewTreament-click-event. Calls the newTreatmentWindow methods in the {@link TreatmentDAO}
+     */
     @FXML
     public void handleNewTreatment() {
         try{
@@ -160,6 +194,9 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     *
+     */
     @FXML
     public void handleMouseClick(){
         tableView.setOnMouseClicked(event -> {
@@ -172,6 +209,10 @@ public class AllTreatmentController {
         });
     }
 
+    /**
+     * Hier wird ein neues Treatment window erstellt
+     * @param patient
+     */
     public void newTreatmentWindow(Patient patient){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/NewTreatmentView.fxml"));
@@ -192,6 +233,10 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * aufruf des Treatment windows
+     * @param treatment
+     */
     public void treatmentWindow(Treatment treatment){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/TreatmentView.fxml"));

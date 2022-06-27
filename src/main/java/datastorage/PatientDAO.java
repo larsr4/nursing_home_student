@@ -28,8 +28,8 @@ public class PatientDAO extends DAOimp<Patient> {
      */
     @Override
     protected String getCreateStatementString(Patient patient) {
-        return String.format("INSERT INTO patient (firstname, surname, dateOfBirth, carelevel, roomnumber) VALUES ('%s', '%s', '%s', '%s', '%s')",
-                patient.getFirstName(), patient.getSurname(), patient.getDateOfBirth(), patient.getCareLevel(), patient.getRoomnumber());
+        return String.format("INSERT INTO patient (firstname, surname, dateOfBirth, carelevel, roomnumber,block,entrydate) VALUES ('%s', '%s', '%s', '%s', '%s',default,'%s')",
+                patient.getFirstName(), patient.getSurname(), patient.getDateOfBirth(), patient.getCareLevel(), patient.getRoomnumber(),DateConverter.getDatenow());
     }
 
     /**
@@ -44,6 +44,7 @@ public class PatientDAO extends DAOimp<Patient> {
 
     /**
      * maps a <code>ResultSet</code> to a <code>Patient</code>
+     * + checks ob diese Daten zualt sind oder ob diese gesperrt sind
      * @param result ResultSet with a single row. Columns will be mapped to a patient-object.
      * @return patient with the data from the resultSet.
      */
@@ -53,8 +54,15 @@ public class PatientDAO extends DAOimp<Patient> {
         LocalDate date = DateConverter.convertStringToLocalDate(result.getString(4));
         p = new Patient(result.getInt(1), result.getString(2),
                 result.getString(3), date, result.getString(5),
-                result.getString(6));
-        return p;
+                result.getString(6),result.getBoolean(7),result.getString(8));
+        if(DateConverter.add10(p.getEntryDate())>=DateConverter.getDatenowINT()){
+            deleteById(p.getPid());
+        }
+        if(p.getBlock()==false) {
+            return p;
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -79,7 +87,7 @@ public class PatientDAO extends DAOimp<Patient> {
             LocalDate date = DateConverter.convertStringToLocalDate(result.getString(4));
             p = new Patient(result.getInt(1), result.getString(2),
                     result.getString(3), date,
-                    result.getString(5), result.getString(6));
+                    result.getString(5), result.getString(6),result.getBoolean(7),result.getString(8));
             list.add(p);
         }
         return list;
@@ -113,6 +121,6 @@ public class PatientDAO extends DAOimp<Patient> {
      */
     @Override
     protected String getBlockStatementString(long key) {
-        return String.format("Delete FROM patient WHERE pid=%d", key);
+        return String.format("Update patient SET block = true WHERE pid=%d", key);
     }
 }

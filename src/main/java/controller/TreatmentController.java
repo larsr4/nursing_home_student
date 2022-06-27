@@ -37,6 +37,12 @@ public class TreatmentController {
     private Patient patient;
     private Treatment treatment;
 
+    /**
+     * Initialisieren des Controller
+     * @param controller
+     * @param stage
+     * @param treatment
+     */
     public void initializeController(AllTreatmentController controller, Stage stage, Treatment treatment) {
         this.stage = stage;
         this.controller= controller;
@@ -50,6 +56,9 @@ public class TreatmentController {
         }
     }
 
+    /**
+     * ausgeben der Daten im View
+     */
     private void showData(){
         this.lblPatientName.setText(patient.getSurname()+", "+patient.getFirstName());
         this.lblCarelevel.setText(patient.getCareLevel());
@@ -61,6 +70,9 @@ public class TreatmentController {
         this.taRemarks.setText(this.treatment.getRemarks());
     }
 
+    /**
+     * Änderungen übernehmen
+     */
     @FXML
     public void handleChange(){
         this.treatment.setDate(this.datepicker.getValue().toString());
@@ -73,6 +85,9 @@ public class TreatmentController {
         stage.close();
     }
 
+    /**
+     * Updatet die Daten in der Datenbank
+     */
     private void doUpdate(){
         TreatmentDAO dao = DAOFactory.getDAOFactory().createTreatmentDAO();
         try {
@@ -82,6 +97,9 @@ public class TreatmentController {
         }
     }
 
+    /**
+     * wird das Window geschlossen
+     */
     @FXML
     public void handleCancel(){
         stage.close();

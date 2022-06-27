@@ -30,8 +30,8 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
      */
     @Override
     protected String getCreateStatementString(Caregiver caregiver) {
-        return String.format("INSERT INTO caregiver (firstname, surname, birth_date, phonenumber,block) VALUES ('%s', '%s', '%s', '%s',default)",
-                caregiver.getFirstName(), caregiver.getSurname() ,caregiver.getDateOfBirth(),caregiver.getTelNumber());
+        return String.format("INSERT INTO caregiver (firstname, surname, birth_date, phonenumber,block,entrydate) VALUES ('%s', '%s', '%s', '%s',default,'%s')",
+                caregiver.getFirstName(), caregiver.getSurname() ,caregiver.getDateOfBirth(),caregiver.getTelNumber(),DateConverter.getDatenow());
     }
 
     /**
@@ -46,6 +46,7 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
 
     /**
      * maps a <code>ResultSet</code> to a <code>Caregiver</code>
+     * + checks ob diese Daten zualt sind oder ob diese gesperrt sind
      * @param result ResultSet with a single row. Columns will be mapped to a Caregiver-object.
      * @return Caregiver with the data from the resultSet.
      */
@@ -53,7 +54,10 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
     protected Caregiver getInstanceFromResultSet(ResultSet result) throws SQLException {
         Caregiver p = null;
         p = new Caregiver(result.getInt(1), result.getString(2),
-                result.getString(3), result.getString(4),result.getString(5),result.getBoolean(6));
+                result.getString(3), result.getString(4),result.getString(5),result.getBoolean(6),result.getString(7));
+        if(DateConverter.add10(p.getEntryDate())>=DateConverter.getDatenowINT()){
+            deleteById(p.getCid());
+        }
         if(p.getBlock()==false) {
             return p;
         }else{

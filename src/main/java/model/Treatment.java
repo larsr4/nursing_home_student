@@ -12,6 +12,8 @@ public class Treatment {
     private LocalTime end;
     private String description;
     private String remarks;
+    private boolean block;
+    private String entryDate;
 
     public Treatment(long pid, LocalDate date, LocalTime begin,
                      LocalTime end, String description, String remarks) {
@@ -24,7 +26,7 @@ public class Treatment {
     }
 
     public Treatment(long tid, long pid, LocalDate date, LocalTime begin,
-                     LocalTime end, String description, String remarks) {
+                     LocalTime end, String description, String remarks,boolean block,String entryDate) {
         this.tid = tid;
         this.pid = pid;
         this.date = date;
@@ -32,6 +34,8 @@ public class Treatment {
         this.end = end;
         this.description = description;
         this.remarks = remarks;
+        this.block = block;
+        this.entryDate= entryDate;
     }
 
     public long getTid() {
@@ -93,5 +97,11 @@ public class Treatment {
                 "\nEnd: " + this.end +
                 "\nDescription: " + this.description +
                 "\nRemarks: " + this.remarks + "\n";
+    }
+    public boolean getBlock(){
+        return this.block;
+    }
+    public String getEntryDate(){
+        return this.entryDate;
     }
 }

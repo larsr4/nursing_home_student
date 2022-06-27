@@ -71,7 +71,7 @@ public class AllCaregiverController {
         this.colDateOfBirth.setCellFactory(TextFieldTableCell.forTableColumn());
 
         this.colTelephone.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("phoneNumber"));
-        this.colTelephone.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.colDateOfBirth.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
 
@@ -109,7 +109,7 @@ public class AllCaregiverController {
         doUpdate(event);
     }
     /**
-     * handles new roomnumber value
+     * handles new telephone value
      * @param event event including the value that a user entered into the cell
      */
     @FXML
@@ -161,7 +161,7 @@ public class AllCaregiverController {
         }
     }
     /**
-     * handles a delete-click-event. Calls the delete methods in the {@link CaregiverDAO}
+     * handles a block-click-event. Calls the block methods in the {@link CaregiverDAO}
      */
     @FXML
     public void handleBlockRow() {

@@ -8,13 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Patients live in a NURSING home and are treated by nurses.
+ * A Caregiver who treats the patients
  */
 public class Caregiver extends Person {
     private long cid;
     private String dateOfBirth;
     private String phoneNumber;
     private boolean block;
+    private String entryDate;
 
     /**
      * constructs a patient from the given params.
@@ -37,12 +38,13 @@ public class Caregiver extends Person {
      * @param dateOfBirth
      * @param telenumber
      */
-    public Caregiver(long cid, String firstName, String surname, String dateOfBirth, String telenumber,Boolean block) {
+    public Caregiver(long cid, String firstName, String surname, String dateOfBirth, String telenumber,Boolean block ,String entryDate) {
         super(firstName, surname);
         this.cid = cid;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = telenumber;
         this.block=block;
+        this.entryDate= entryDate;
     }
 
     /**
@@ -80,6 +82,7 @@ public class Caregiver extends Person {
                 "\nPhonenumber: " + this.phoneNumber+
                 "\n";
     }
+
     public String getTelNumber() {
         return this.phoneNumber;
     }
@@ -88,5 +91,8 @@ public class Caregiver extends Person {
     }
     public boolean getBlock(){
         return this.block;
+    }
+    public String getEntryDate(){
+        return this.entryDate;
     }
 }
