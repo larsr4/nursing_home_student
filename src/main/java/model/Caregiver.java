@@ -14,6 +14,7 @@ public class Caregiver extends Person {
     private long cid;
     private String dateOfBirth;
     private String phoneNumber;
+    private boolean block;
 
     /**
      * constructs a patient from the given params.
@@ -36,11 +37,12 @@ public class Caregiver extends Person {
      * @param dateOfBirth
      * @param telenumber
      */
-    public Caregiver(long cid, String firstName, String surname, String dateOfBirth, String telenumber) {
+    public Caregiver(long cid, String firstName, String surname, String dateOfBirth, String telenumber,Boolean block) {
         super(firstName, surname);
         this.cid = cid;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = telenumber;
+        this.block=block;
     }
 
     /**
@@ -83,5 +85,8 @@ public class Caregiver extends Person {
     }
     public void setTelephone(String Telephone) {
         this.phoneNumber=Telephone;
+    }
+    public boolean getBlock(){
+        return this.block;
     }
 }

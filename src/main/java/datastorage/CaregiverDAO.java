@@ -30,7 +30,7 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
      */
     @Override
     protected String getCreateStatementString(Caregiver caregiver) {
-        return String.format("INSERT INTO caregiver (firstname, surname, birth_date, phonenumber) VALUES ('%s', '%s', '%s', '%s')",
+        return String.format("INSERT INTO caregiver (firstname, surname, birth_date, phonenumber,block) VALUES ('%s', '%s', '%s', '%s',default)",
                 caregiver.getFirstName(), caregiver.getSurname() ,caregiver.getDateOfBirth(),caregiver.getTelNumber());
     }
 
@@ -53,8 +53,14 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
     protected Caregiver getInstanceFromResultSet(ResultSet result) throws SQLException {
         Caregiver p = null;
         p = new Caregiver(result.getInt(1), result.getString(2),
-                result.getString(3), result.getString(4),result.getString(5));
-        return p;
+                result.getString(3), result.getString(4),result.getString(5),result.getBoolean(6));
+        if(p.getBlock()==false) {
+            return p;
+        }else{
+            return null;
+        }
+
+
     }
 
     /**
@@ -77,8 +83,10 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
         Caregiver p = null;
         while (result.next()) {
             p = new Caregiver(result.getInt(1), result.getString(2),
-                    result.getString(3),result.getString(4),result.getString(5));
-            list.add(p);
+                    result.getString(3),result.getString(4),result.getString(5),result.getBoolean(6));
+            if(p.getBlock()==false){
+                list.add(p);
+            }
         }
         return list;
     }
@@ -90,8 +98,8 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
      */
     @Override
     protected String getUpdateStatementString(Caregiver Caregiver) {
-        return String.format("UPDATE caregiver SET firstname = '%s', surname = '%s', birth_date = '%s', phonenumber = '%s'," +
-                " WHERE pid = %d", Caregiver.getFirstName(), Caregiver.getSurname(), Caregiver.getDateOfBirth(),Caregiver.getTelNumber(), Caregiver.getCid());
+        return String.format("UPDATE caregiver SET firstname = '%s', surname = '%s', birth_date = '%s', phonenumber = '%s',block = '%b'," +
+                " WHERE cid = %d", Caregiver.getFirstName(), Caregiver.getSurname(), Caregiver.getDateOfBirth(),Caregiver.getTelNumber(), Caregiver.getBlock(),Caregiver.getCid());
     }
 
     /**
