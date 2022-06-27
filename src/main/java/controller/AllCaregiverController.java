@@ -160,6 +160,19 @@ public class AllCaregiverController {
             e.printStackTrace();
         }
     }
+    /**
+     * handles a delete-click-event. Calls the delete methods in the {@link CaregiverDAO}
+     */
+    @FXML
+    public void handleBlockRow() {
+        Caregiver selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        try {
+            dao.blockById(selectedItem.getCid());
+            this.tableView.getItems().remove(selectedItem);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * handles a add-click-event. Creates a Caregiver and calls the create method in the {@link CaregiverDAO}

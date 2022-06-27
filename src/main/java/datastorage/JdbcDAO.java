@@ -96,4 +96,13 @@ public class JdbcDAO extends DAOimp<NormalUser> {
     protected String getDeleteStatementString(long key) {
         return String.format("Delete FROM user WHERE pid=%d", key);
     }
+    /**
+     * generates a <code>delete</code>-Statement for a given key
+     * @param key for which a specific DELETE is to be created
+     * @return <code>String</code> with the generated SQL.
+     */
+    @Override
+    protected String getBlockStatementString(long key) {
+        return String.format("Delete FROM patient WHERE pid=%d", key);
+    }
 }

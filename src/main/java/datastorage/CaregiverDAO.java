@@ -111,4 +111,13 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
     protected String getDeleteStatementString(long key) {
         return String.format("Delete FROM caregiver WHERE cid=%d", key);
     }
+    /**
+     * generates a <code>delete</code>-Statement for a given key
+     * @param key for which a specific DELETE is to be created
+     * @return <code>String</code> with the generated SQL.
+     */
+    @Override
+    protected String getBlockStatementString(long key) {
+        return String.format("UPDATE caregiver SET block = true WHERE cid=%d", key);
+    }
 }
