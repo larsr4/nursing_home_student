@@ -1,12 +1,13 @@
 package datastorage;
 
-import model.NormalUser;
+import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class JdbcDAO extends DAOimp<NormalUser> {
+public class JdbcDAO extends DAOimp<User> {
     private static final String SELECT_QUERY = "SELECT * FROM USER WHERE USER.USER= ? AND USER.PASSWORD =?";
+    private static final String SELECT_ADMIN = "SELECT * FROM USER WHERE USER.USER= ? AND USER.PASSWORD =? AND USER.ADMIN=TRUE";
 
     public JdbcDAO(Connection conn) {
         super(conn);
@@ -19,7 +20,25 @@ public class JdbcDAO extends DAOimp<NormalUser> {
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, password);
 
-            System.out.println(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+
+
+        } catch (SQLException e) {
+            // print SQL exception information
+            printSQLException(e);
+        }
+        return false;
+    }
+
+    public boolean Admin(String user, String password) throws SQLException {
+        try (
+                // Step 2:Create a statement using connection object
+                PreparedStatement preparedStatement = conn.prepareStatement(SELECT_ADMIN)) {
+            preparedStatement.setString(1, user);
+            preparedStatement.setString(2, password);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -51,7 +70,7 @@ public class JdbcDAO extends DAOimp<NormalUser> {
     }
 
     @Override
-    protected String getCreateStatementString(NormalUser user) {
+    protected String getCreateStatementString(User user) {
         return String.format("INSERT INTO user (name, Password, Admin, firstLogin) VALUES ('%s', '%s', '%s', '%s')",
                 user.getName(), user.getPassword(), user.getAdmin(), user.getFirstLogin());
     }
@@ -62,9 +81,9 @@ public class JdbcDAO extends DAOimp<NormalUser> {
     }
 
     @Override
-    protected NormalUser getInstanceFromResultSet(ResultSet result) throws SQLException {
-        NormalUser user = null;
-        user = new NormalUser(result.getInt(1), result.getString(2),
+    protected User getInstanceFromResultSet(ResultSet result) throws SQLException {
+        User user = null;
+        user = new User(result.getInt(1), result.getString(2),
                 result.getString(3), result.getBoolean(4), result.getBoolean(5));
         return user;
     }
@@ -75,11 +94,11 @@ public class JdbcDAO extends DAOimp<NormalUser> {
     }
 
     @Override
-    protected ArrayList<NormalUser> getListFromResultSet(ResultSet result) throws SQLException {
-        ArrayList<NormalUser> list = new ArrayList<>();
-        NormalUser user = null;
+    protected ArrayList<User> getListFromResultSet(ResultSet result) throws SQLException {
+        ArrayList<User> list = new ArrayList<>();
+        User user = null;
         while (result.next()) {
-            user = new NormalUser(result.getInt(1), result.getString(2),
+            user = new User(result.getInt(1), result.getString(2),
                     result.getString(3), result.getBoolean(4), result.getBoolean(5));
             list.add(user);
         }
@@ -87,7 +106,7 @@ public class JdbcDAO extends DAOimp<NormalUser> {
     }
 
     @Override
-    protected String getUpdateStatementString(NormalUser normalUser) {
+    protected String getUpdateStatementString(User normalUser) {
         return String.format("UPDATE user SET user = '%s', password = '%s', admin = '%s', firstlogin = '%s' " + "WHERE pid = %d", normalUser.getName(), normalUser.getPassword(), normalUser.getAdmin(),
                 normalUser.getFirstLogin());
     }

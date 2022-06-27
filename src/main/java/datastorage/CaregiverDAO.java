@@ -87,7 +87,7 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
         Caregiver p = null;
         while (result.next()) {
             p = new Caregiver(result.getInt(1), result.getString(2),
-                    result.getString(3),result.getString(4),result.getString(5),result.getBoolean(6));
+                    result.getString(3),result.getString(4),result.getString(5),result.getBoolean(6),result.getString(7));
             if(p.getBlock()==false){
                 list.add(p);
             }

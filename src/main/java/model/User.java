@@ -1,20 +1,20 @@
 package model;
 
-public class NormalUser {
+public class User {
         public String Name;
         public String Password;
         private Boolean Admin;
         private Boolean firstLogin;
         private long uid;
 
-        public NormalUser(String Name,String Password, Boolean Admin, Boolean firstLogin){
+        public User(String Name, String Password, Boolean Admin, Boolean firstLogin){
             this.Name = Name;
             this.Password = Password;
             this.Admin = Admin;
             this.firstLogin = firstLogin;
         }
 
-    public NormalUser(long uid,String Name,String Password, Boolean Admin, Boolean firstLogin){
+    public User(long uid, String Name, String Password, Boolean Admin, Boolean firstLogin){
         this.uid = uid;
         this.Name = Name;
         this.Password = Password;

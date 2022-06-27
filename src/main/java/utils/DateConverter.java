@@ -18,14 +18,33 @@ public class DateConverter {
                 Integer.parseInt(array[2]));
         return result;
     }
-
+    /**
+     * Ändert die Ankommenden String in Local Time
+     * @param time
+     * @return Localtime
+     */
     public static LocalTime convertStringToLocalTime(String time) {
         String[] array = time.split(":");
         LocalTime result = LocalTime.of(Integer.parseInt(array[0]), Integer.parseInt(array[1]));
         return result;
     }
-    public static LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
-        return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
+    /**
+     *
+     * @return gibt das Datum in String zurück
+     */
+    public static String getDatenow(){
+        LocalDate today = LocalDate.now();
+        return today.toString();
+    }
+    /**
+     * Hier wird das datum was ankommt mit +10 jahren zurückgegeben
+     * @param date
+     * @return Date in GZ mit +10 Jahren
+     */
+    public static int add10(String date){
+        String[] arr = date.split("-");
+        return Integer.parseInt(arr[0])+10;
+
     }
     /**
      * Gibt das Date now in GZ aus
