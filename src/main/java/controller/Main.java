@@ -1,25 +1,20 @@
 package controller;
 
-import datastorage.ConnectionBuilder;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class Main extends Application{
-   public static Stage primaryStage;
+    //statische Stage, damit diese auch vom LoginController aus aufgerufen werden kann.
+    public static Stage primaryStage;
 
     /**
-     * Main auslagern & nur Main anlaufen lassen und den Inhalt von Main in neue Klasse, welche mit Loginkotroller verbunden ist.
-     * @param primaryStage
+     * startet das Programm nach dem launch Befehl in der main. Hier wird loginPage aufgerufen und die Stage gesetzt.
+     * @param primaryStage setzt this.primaryStage auf Übergabeparameter zur instanziierung.
      * @throws IOException
      */
     @Override
@@ -28,6 +23,10 @@ public class Main extends Application{
         loginPage();
     }
 
+    /**
+     * die Login GUI von der fxml datei LoginView wird aufgerufen und die Scene wird gesetzt und angezeigt.
+     * @throws IOException
+     */
     public void loginPage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
         primaryStage.setTitle("User Login NHPlus");
@@ -35,6 +34,10 @@ public class Main extends Application{
         primaryStage.show();
     }
 
+    /**
+     * main Methode der Anwendung. Startet diese Anwendung, wenn ausgeführt.
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

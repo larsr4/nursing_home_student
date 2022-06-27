@@ -3,11 +3,9 @@ package controller;
 import datastorage.ConnectionBuilder;
 import datastorage.JdbcDAO;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -38,11 +36,10 @@ public class LoginController {
      * diese Funktion ueberprueft, ob die uebergebenen Einlogdaten valide sind.
      * falls Login Daten falsch -> visuelle Ausgabe.
      * wenn logindaten richtig -> entweder NormalUser GUI ansonsten, wenn User= Admin -> AdminUser GUI
-     * @param event
-     * @throws SQLException
+     * @throws SQLException wirft bei fehlgeschlagenen Verbindungsaufbau eine SQLException
      */
     @FXML
-    public void login(ActionEvent event) throws SQLException {
+    public void login() throws SQLException {
 
         Window owner = submitButton.getScene().getWindow();
 
@@ -75,10 +72,10 @@ public class LoginController {
     }
 
     /**
-     * 
-     * @param infoMessage
-     * @param headerText
-     * @param title
+     * Eine visuelle Ausgabe einer Box mit dem Textinhalt infoMessage, dem Titel title
+     * @param infoMessage Text, welcher in der Box stehen wird
+     * @param headerText header von der Box
+     * @param title Titel der Box
      */
     public static void infoBox(String infoMessage, String headerText, String title) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -88,6 +85,14 @@ public class LoginController {
         alert.showAndWait();
     }
 
+    /**
+     * eine Warnungsbox, welche ausgegeben wird, falls Angaben fehelen.
+     * Diese gibt den Typen alertType, den Besitzer der Nachricht owner, den Titel der Box titel und die anzuzeigende Nachricht message aus
+     * @param alertType Typ des Alerts
+     * @param owner Besitzer der Nachricht
+     * @param title Titel der Nachricht
+     * @param message Text innerhalb der Box
+     */
     private static void showAlert(AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -97,6 +102,10 @@ public class LoginController {
         alert.show();
     }
 
+    /**
+     * das GUI vom Admin wird aufgerufen. Hier können Einträge bearbeitet, gelöscht, gesperrt oder erstellt werden.
+     * @param mainStage das angezeigte GUI vom Typ Stage.
+     */
     public void mainAdminWindow(Stage mainStage) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/MainWindowView.fxml"));
@@ -121,7 +130,10 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * das GUI vom User wird aufgerufen. Hier können Einträge bearbeitet, gesperrt oder erstellt werden.
+     * @param mainStage das angezeigte GUI vom Typ Stage.
+     */
     public void mainUserWindow(Stage mainStage) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/MainWindowUserView.fxml"));
