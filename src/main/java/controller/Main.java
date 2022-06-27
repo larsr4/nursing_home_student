@@ -18,10 +18,12 @@ public class Main extends Application {
 
     private Stage primaryStage;
 
+
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException{
         this.primaryStage = primaryStage;
         mainWindow();//
+        //loginPage(primaryStage);
     }
 
     public void mainWindow() {
@@ -49,7 +51,7 @@ public class Main extends Application {
         }
     }
 
-    public void mainPage(Stage primaryStage) throws IOException{
+    public void loginPage(Stage primaryStage) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
         primaryStage.setTitle("User Login NHPlus");
         primaryStage.setScene(new Scene(root, 800, 500));
