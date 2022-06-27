@@ -2,6 +2,9 @@ package utils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.sql.Date;
+
+
 
 public class DateConverter {
     public static LocalDate convertStringToLocalDate(String date) {
@@ -15,5 +18,8 @@ public class DateConverter {
         String[] array = time.split(":");
         LocalTime result = LocalTime.of(Integer.parseInt(array[0]), Integer.parseInt(array[1]));
         return result;
+    }
+    public static LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
+        return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
     }
 }

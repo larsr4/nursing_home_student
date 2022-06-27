@@ -1,14 +1,14 @@
 package datastorage;
 
 import model.Caregiver;
-import model.Caregiver;
-import utils.DateConverter;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import utils.DateConverter;
 
 /**
  * Implements the Interface <code>DAOImp</code>. Overrides methods to generate specific Caregiver-SQL-queries.
@@ -30,8 +30,8 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
      */
     @Override
     protected String getCreateStatementString(Caregiver caregiver) {
-        return String.format("INSERT INTO Caregiver (firstname, surname, dateOfBirth,telenumber) VALUES ('%s', '%s', '%d', '%d')",
-                caregiver.getFirstName(), caregiver.getSurname(), caregiver.getDateOfBirth(),caregiver.getTelNumber());
+        return String.format("INSERT INTO caregiver (firstname, surname, birth_date, phonenumber) VALUES ('%s', '%s', '%s', '%s')",
+                caregiver.getFirstName(), caregiver.getSurname() ,caregiver.getDateOfBirth(),caregiver.getTelNumber());
     }
 
     /**
@@ -41,7 +41,7 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
      */
     @Override
     protected String getReadByIDStatementString(long key) {
-        return String.format("SELECT * FROM Caregiver WHERE cid = %d", key);
+        return String.format("SELECT * FROM caregiver WHERE cid = %d", key);
     }
 
     /**
@@ -77,7 +77,7 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
         Caregiver p = null;
         while (result.next()) {
             p = new Caregiver(result.getInt(1), result.getString(2),
-                    result.getString(3),result.getDate(4),result.getInt(5));
+                    result.getString(3),result.getString(4),result.getString(5));
             list.add(p);
         }
         return list;
@@ -90,9 +90,8 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
      */
     @Override
     protected String getUpdateStatementString(Caregiver Caregiver) {
-        return String.format("UPDATE Caregiver SET firstname = '%s', surname = '%s', dateOfBirth = '%s' " +
-                " WHERE pid = %d", Caregiver.getFirstName(), Caregiver.getSurname(), Caregiver.getDateOfBirth()
-                , Caregiver.getCid());
+        return String.format("UPDATE caregiver SET firstname = '%s', surname = '%s', birth_date = '%s', phonenumber = '%s'," +
+                " WHERE pid = %d", Caregiver.getFirstName(), Caregiver.getSurname(), Caregiver.getDateOfBirth(),Caregiver.getTelNumber(), Caregiver.getCid());
     }
 
     /**
@@ -102,6 +101,6 @@ public class CaregiverDAO extends DAOimp<Caregiver> {
      */
     @Override
     protected String getDeleteStatementString(long key) {
-        return String.format("Delete FROM Caregiver WHERE cid=%d", key);
+        return String.format("Delete FROM caregiver WHERE cid=%d", key);
     }
 }
